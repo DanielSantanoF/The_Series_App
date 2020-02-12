@@ -2,6 +2,6 @@ package com.dsantano.theseriesapp.listeners;
 
 import com.dsantano.theseriesapp.models.Series;
 
-public interface IPopularsMoviesListener {
+public interface IPopularsSeriesListener {
     void onPopularSeriesItemClick(Series series);
 }

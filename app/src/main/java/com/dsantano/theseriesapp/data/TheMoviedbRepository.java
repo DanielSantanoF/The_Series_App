@@ -1,8 +1,12 @@
 package com.dsantano.theseriesapp.data;
 
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.dsantano.theseriesapp.common.MyApp;
+import com.dsantano.theseriesapp.models.PopularSeries;
 import com.dsantano.theseriesapp.models.Populars;
 import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
 import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
@@ -16,30 +20,30 @@ public class TheMoviedbRepository {
     TheMoviedbService service;
     ServiceGenerator serviceGenerator;
 
-    LiveData<Populars> allPopulars;
+    LiveData<PopularSeries> allPopulars;
 
     TheMoviedbRepository(){
         service = serviceGenerator.createService(TheMoviedbService.class);
         allPopulars = getAllPopulars();
     }
 
-    public LiveData<Populars> getAllPopulars(){
-        final MutableLiveData<Populars> data = new MutableLiveData<>();
+    public LiveData<PopularSeries> getAllPopulars(){
+        final MutableLiveData<PopularSeries> data = new MutableLiveData<>();
 
-        Call<Populars> call = service.getPopularsMovies();
-        call.enqueue(new Callback<Populars>() {
+        Call<PopularSeries> call = service.getPopularsSeries("1");
+        call.enqueue(new Callback<PopularSeries>() {
             @Override
-            public void onResponse(Call<Populars> call, Response<Populars> response) {
+            public void onResponse(Call<PopularSeries> call, Response<PopularSeries> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
-                    //Toast.makeText(MyApp.getContext(), "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Populars> call, Throwable t) {
-                //Toast.makeText(MyApp.getContext(), "Error en la conexión", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<PopularSeries> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });
         return data;

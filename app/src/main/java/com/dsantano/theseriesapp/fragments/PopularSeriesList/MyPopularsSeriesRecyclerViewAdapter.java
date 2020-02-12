@@ -10,9 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dsantano.theseriesapp.R;
-import com.dsantano.theseriesapp.constants.Constants;
-import com.dsantano.theseriesapp.listeners.IPopularsMoviesListener;
+import com.dsantano.theseriesapp.common.Constants;
+import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.Series;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class MyPopularsSeriesRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     private final Context ctx;
     private List<Series> mValues;
-    private final IPopularsMoviesListener mListener;
+    private final IPopularsSeriesListener mListener;
 
-    public MyPopularsSeriesRecyclerViewAdapter(Context ctx, List<Series> mValues, IPopularsMoviesListener mListener) {
+    public MyPopularsSeriesRecyclerViewAdapter(Context ctx, List<Series> mValues, IPopularsSeriesListener mListener) {
         this.ctx = ctx;
         this.mValues = mValues;
         this.mListener = mListener;
@@ -42,10 +43,11 @@ public class MyPopularsSeriesRecyclerViewAdapter extends RecyclerView.Adapter<My
             holder.mItem = mValues.get(position);
             Glide
                     .with(ctx)
-                    .load(Constants.posterPathUrlw500 + holder.mItem.getPosterPath())
+                    .load(Constants.POSTER_PATH_URL_W500 + holder.mItem.getPosterPath())
+                    .error(Glide.with(ctx).load(R.drawable.image_not_loaded_icon))
+                    .thumbnail(Glide.with(ctx).load(R.drawable.loading_gif).transform( new CenterCrop()))
                     .into(holder.ivPosterPath);
 
-            //https://image.tmdb.org/t/p/w500/
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -57,10 +59,10 @@ public class MyPopularsSeriesRecyclerViewAdapter extends RecyclerView.Adapter<My
         }
     }
 
-//    public void setData(List<Movie> list){
-//        this.mValues = list;
-//        notifyDataSetChanged();
-//    }
+    public void setData(List<Series> list){
+        this.mValues = list;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

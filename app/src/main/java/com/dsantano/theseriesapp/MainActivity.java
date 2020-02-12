@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.dsantano.theseriesapp.listeners.IPopularsMoviesListener;
+import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.Series;
 
-public class MainActivity extends AppCompatActivity implements IPopularsMoviesListener {
+public class MainActivity extends AppCompatActivity implements IPopularsSeriesListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,12 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.dsantano.theseriesapp.models.PopularSeries;
 import com.dsantano.theseriesapp.models.Populars;
 
 public class TheMoviedbViewModel extends AndroidViewModel {
 
     private TheMoviedbRepository theMoviedbRepository;
-    private LiveData<Populars> allPopulars;
+    private LiveData<PopularSeries> allPopulars;
 
     public TheMoviedbViewModel(@NonNull Application application) {
         super(application);
@@ -19,7 +20,7 @@ public class TheMoviedbViewModel extends AndroidViewModel {
         allPopulars = theMoviedbRepository.getAllPopulars();
     }
 
-    public LiveData<Populars> getAllPopulars(){
+    public LiveData<PopularSeries> getAllPopulars(){
         return allPopulars;
     }
 

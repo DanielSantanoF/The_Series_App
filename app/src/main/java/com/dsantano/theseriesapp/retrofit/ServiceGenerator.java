@@ -1,6 +1,6 @@
 package com.dsantano.theseriesapp.retrofit;
 
-import com.dsantano.theseriesapp.constants.Constants;
+import com.dsantano.theseriesapp.common.Constants;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String BASE_URL = Constants.THE_MOVIEDB_BASIC_API_URL;
 
     private static Retrofit.Builder retrofitBuilder =
             new Retrofit.Builder()
@@ -43,9 +43,9 @@ public class ServiceGenerator {
                     Request original = chain.request();
                     HttpUrl originalHttpUrl = original.url();
                     HttpUrl url = originalHttpUrl.newBuilder()
-                            .addQueryParameter("api_key", Constants.apiKeyTheMoviedb)
+                            .addQueryParameter("api_key", Constants.API_KEY_THE_MOVIEDB)
                             .addQueryParameter("language", "en-US")
-                            .addQueryParameter("page", "1")
+//                            .addQueryParameter("page", "1")
                             .build();
                     Request.Builder requestBuilder = original.newBuilder()
                             .url(url);
