@@ -1,4 +1,4 @@
-package com.dsantano.myapplication;
+package com.dsantano.theseriesapp.fragments.PopularSeriesList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,18 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dsantano.myapplication.listeners.IPopularsMoviesListener;
-import com.dsantano.myapplication.models.Movie;
+import com.dsantano.theseriesapp.R;
+import com.dsantano.theseriesapp.constants.Constants;
+import com.dsantano.theseriesapp.listeners.IPopularsMoviesListener;
+import com.dsantano.theseriesapp.models.Series;
 
 import java.util.List;
 
-public class MyPopularsMoviesRecyclerViewAdapter extends RecyclerView.Adapter<MyPopularsMoviesRecyclerViewAdapter.ViewHolder> {
+public class MyPopularsSeriesRecyclerViewAdapter extends RecyclerView.Adapter<MyPopularsSeriesRecyclerViewAdapter.ViewHolder> {
 
     private final Context ctx;
-    private List<Movie> mValues;
+    private List<Series> mValues;
     private final IPopularsMoviesListener mListener;
 
-    public MyPopularsMoviesRecyclerViewAdapter(Context ctx, List<Movie> mValues, IPopularsMoviesListener mListener) {
+    public MyPopularsSeriesRecyclerViewAdapter(Context ctx, List<Series> mValues, IPopularsMoviesListener mListener) {
         this.ctx = ctx;
         this.mValues = mValues;
         this.mListener = mListener;
@@ -30,7 +32,7 @@ public class MyPopularsMoviesRecyclerViewAdapter extends RecyclerView.Adapter<My
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_popularsmovies, parent, false);
+                .inflate(R.layout.fragment_popularsseries, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,10 +40,9 @@ public class MyPopularsMoviesRecyclerViewAdapter extends RecyclerView.Adapter<My
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if(mValues != null){
             holder.mItem = mValues.get(position);
-            holder.txtTittle.setText(holder.mItem.getTitle());
             Glide
                     .with(ctx)
-                    .load("https://image.tmdb.org/t/p/w500/" + holder.mItem.getPosterPath())
+                    .load(Constants.posterPathUrlw500 + holder.mItem.getPosterPath())
                     .into(holder.ivPosterPath);
 
             //https://image.tmdb.org/t/p/w500/
@@ -49,17 +50,17 @@ public class MyPopularsMoviesRecyclerViewAdapter extends RecyclerView.Adapter<My
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
-                        mListener.onPopularMoviesItemClick(holder.mItem);
+                        mListener.onPopularSeriesItemClick(holder.mItem);
                     }
                 }
             });
         }
     }
 
-    public void setData(List<Movie> list){
-        this.mValues = list;
-        notifyDataSetChanged();
-    }
+//    public void setData(List<Movie> list){
+//        this.mValues = list;
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public int getItemCount() {
@@ -72,15 +73,13 @@ public class MyPopularsMoviesRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView txtTittle;
         public final ImageView ivPosterPath;
         public final TextView mContentView;
-        public Movie mItem;
+        public Series mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            txtTittle = view.findViewById(R.id.textViewTittle);
             ivPosterPath = view.findViewById(R.id.imageViewPosterPath);
             mContentView = (TextView) view.findViewById(R.id.content);
         }

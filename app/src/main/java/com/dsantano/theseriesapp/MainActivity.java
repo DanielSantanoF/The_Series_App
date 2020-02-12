@@ -1,11 +1,11 @@
-package com.dsantano.myapplication;
+package com.dsantano.theseriesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.dsantano.myapplication.listeners.IPopularsMoviesListener;
-import com.dsantano.myapplication.models.Movie;
+import com.dsantano.theseriesapp.listeners.IPopularsMoviesListener;
+import com.dsantano.theseriesapp.models.Series;
 
 public class MainActivity extends AppCompatActivity implements IPopularsMoviesListener {
 
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements IPopularsMoviesLi
     }
 
     @Override
-    public void onPopularMoviesItemClick(Movie movie) {
+    public void onPopularSeriesItemClick(Series series) {
 
     }
 }

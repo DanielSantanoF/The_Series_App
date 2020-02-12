@@ -1,4 +1,4 @@
-package com.dsantano.myapplication;
+package com.dsantano.theseriesapp;
 
 import android.content.Context;
 

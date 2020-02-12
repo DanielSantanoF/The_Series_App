@@ -1,4 +1,4 @@
-package com.dsantano.myapplication.data;
+package com.dsantano.theseriesapp.data;
 
 import android.app.Application;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.dsantano.myapplication.models.Populars;
+import com.dsantano.theseriesapp.models.Populars;
 
 public class TheMoviedbViewModel extends AndroidViewModel {
 

@@ -1,14 +1,11 @@
-package com.dsantano.myapplication.data;
-
-import android.app.Application;
-import android.widget.Toast;
+package com.dsantano.theseriesapp.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.dsantano.myapplication.models.Populars;
-import com.dsantano.myapplication.retrofit.ServiceGenerator;
-import com.dsantano.myapplication.retrofit.TheMoviedbService;
+import com.dsantano.theseriesapp.models.Populars;
+import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
+import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +26,7 @@ public class TheMoviedbRepository {
     public LiveData<Populars> getAllPopulars(){
         final MutableLiveData<Populars> data = new MutableLiveData<>();
 
-        Call<Populars> call = service.getPopulars();
+        Call<Populars> call = service.getPopularsMovies();
         call.enqueue(new Callback<Populars>() {
             @Override
             public void onResponse(Call<Populars> call, Response<Populars> response) {
