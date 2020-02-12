@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">The_Series_App</string>
+    <string name="content_desciprion_image_view">Image loaded by the app</string>
 </resources>
