@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.fragments.PopularSeriesList;
+package com.dsantano.theseriesapp.ui.PopularSeriesList;
 
 import android.content.Context;
 import android.os.Bundle;

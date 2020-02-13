@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.fragments.PopularSeriesList;
+package com.dsantano.theseriesapp.ui.PopularSeriesList;
 
 import androidx.recyclerview.widget.RecyclerView;
 

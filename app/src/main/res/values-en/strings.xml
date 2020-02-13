@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">The Series App</string>
+    <string name="content_desciprion_image_view">Image loaded by the app</string>
+    <string name="btn_login">Log In</string>
+</resources>

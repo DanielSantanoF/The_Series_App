@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Populars {
+public class PopularsMovies {
     @SerializedName("page")
     @Expose
     public Integer page;

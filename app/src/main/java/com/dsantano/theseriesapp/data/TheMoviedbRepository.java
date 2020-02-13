@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.common.MyApp;
 import com.dsantano.theseriesapp.models.PopularSeries;
-import com.dsantano.theseriesapp.models.Populars;
 import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
 import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
 

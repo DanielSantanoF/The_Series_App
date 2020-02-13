@@ -45,7 +45,6 @@ public class ServiceGenerator {
                     HttpUrl url = originalHttpUrl.newBuilder()
                             .addQueryParameter("api_key", Constants.API_KEY_THE_MOVIEDB)
                             .addQueryParameter("language", "en-US")
-//                            .addQueryParameter("page", "1")
                             .build();
                     Request.Builder requestBuilder = original.newBuilder()
                             .url(url);

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "840477227386",
+    "firebase_url": "https://theseriesapp-70476.firebaseio.com",
+    "project_id": "theseriesapp-70476",
+    "storage_bucket": "theseriesapp-70476.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840477227386:android:0e993b1eb040952ed57ec3",
+        "android_client_info": {
+          "package_name": "com.dsantano.theseriesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840477227386-u44o661cv821jio3mrrak51agl09djtq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dsantano.theseriesapp",
+            "certificate_hash": "07bf2b165c2d5b3ad6606a02526549fc3449dae3"
+          }
+        },
+        {
+          "client_id": "840477227386-p9nedcpvb7m089cc161l2vind5moqf9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1rXFrMVGkzeySNyMwiCYp5anwPypUiC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840477227386-p9nedcpvb7m089cc161l2vind5moqf9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

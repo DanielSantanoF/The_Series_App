@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.dsantano.theseriesapp.models.PopularSeries;
-import com.dsantano.theseriesapp.models.Populars;
 
 public class TheMoviedbViewModel extends AndroidViewModel {
 
