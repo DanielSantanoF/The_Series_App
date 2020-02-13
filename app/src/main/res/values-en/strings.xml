@@ -3,4 +3,5 @@
     <string name="app_name">The Series App</string>
     <string name="content_desciprion_image_view">Image loaded by the app</string>
     <string name="btn_login">Log In</string>
+    <string name="menu_item_log_out">Log out</string>
 </resources>

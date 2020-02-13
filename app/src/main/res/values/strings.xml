@@ -2,4 +2,5 @@
     <string name="app_name">The Series App</string>
     <string name="content_desciprion_image_view">Imagen cargada por la app</string>
     <string name="btn_login">Iniciar Sesión</string>
+    <string name="menu_item_log_out">Cerrar sesión</string>
 </resources>
