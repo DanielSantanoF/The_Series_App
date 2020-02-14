@@ -11,6 +11,7 @@ import com.dsantano.theseriesapp.data.SeriesGetAllPopularsViewModel;
 import com.dsantano.theseriesapp.models.PopularSeries;
 import com.dsantano.theseriesapp.models.SerieDetail;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,12 +39,15 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
     String serieId;
     SerieDetailViewModel serieDetailViewModel;
     SerieDetail data;
+    Toolbar toolbar;
+    CollapsingToolbarLayout toolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_serie_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        toolbarLayout = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
 
         serieId = getIntent().getExtras().get("serieId").toString();
@@ -80,7 +84,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
             @Override
             public void onChanged(SerieDetail serieDetail) {
                 data = serieDetail;
-                DetailSerieScrollingActivity.this.setTitle(serieDetail.getName());
+                toolbarLayout.setTitle(serieDetail.getName());
                 txtTittle.setText(serieDetail.getName());
                 txtDescription.setText(serieDetail.getOverview());
                 float rating = serieDetail.getVoteAverage().floatValue();
