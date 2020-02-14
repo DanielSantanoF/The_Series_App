@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.common.MyApp;
-import com.dsantano.theseriesapp.models.PopularSeries;
+import com.dsantano.theseriesapp.models.SerieDetail;
 import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
 import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
 
@@ -14,25 +14,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TheMoviedbRepository {
+public class SerieDetailRepository {
 
     TheMoviedbService service;
     ServiceGenerator serviceGenerator;
 
-    LiveData<PopularSeries> allPopulars;
+    LiveData<SerieDetail> serieDetail;
 
-    TheMoviedbRepository(){
+    String serieId;
+
+    SerieDetailRepository(String idSerie){
         service = serviceGenerator.createService(TheMoviedbService.class);
-        allPopulars = getAllPopulars();
+        serieDetail = getSerieDetail();
+        serieId = idSerie;
     }
 
-    public LiveData<PopularSeries> getAllPopulars(){
-        final MutableLiveData<PopularSeries> data = new MutableLiveData<>();
+    public LiveData<SerieDetail> getSerieDetail(){
+        final MutableLiveData<SerieDetail> data = new MutableLiveData<>();
 
-        Call<PopularSeries> call = service.getPopularsSeries("1");
-        call.enqueue(new Callback<PopularSeries>() {
+        Call<SerieDetail> call = service.getSerieDetail(serieId, "1");
+        call.enqueue(new Callback<SerieDetail>() {
             @Override
-            public void onResponse(Call<PopularSeries> call, Response<PopularSeries> response) {
+            public void onResponse(Call<SerieDetail> call, Response<SerieDetail> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
                 } else {
@@ -41,8 +44,8 @@ public class TheMoviedbRepository {
             }
 
             @Override
-            public void onFailure(Call<PopularSeries> call, Throwable t) {
-                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<SerieDetail> call, Throwable t) {
+                //Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });
         return data;

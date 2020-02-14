@@ -8,15 +8,15 @@ import androidx.lifecycle.LiveData;
 
 import com.dsantano.theseriesapp.models.PopularSeries;
 
-public class TheMoviedbViewModel extends AndroidViewModel {
+public class SeriesGetAllPopularsViewModel extends AndroidViewModel {
 
-    private TheMoviedbRepository theMoviedbRepository;
+    private SeriesGetAllPopularsRepository seriesGetAllPopularsRepository;
     private LiveData<PopularSeries> allPopulars;
 
-    public TheMoviedbViewModel(@NonNull Application application) {
+    public SeriesGetAllPopularsViewModel(@NonNull Application application) {
         super(application);
-        theMoviedbRepository = new TheMoviedbRepository();
-        allPopulars = theMoviedbRepository.getAllPopulars();
+        seriesGetAllPopularsRepository = new SeriesGetAllPopularsRepository();
+        allPopulars = seriesGetAllPopularsRepository.getAllPopulars();
     }
 
     public LiveData<PopularSeries> getAllPopulars(){

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
 import com.dsantano.theseriesapp.ui.auth.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements IPopularsSeriesLi
 
     @Override
     public void onPopularSeriesItemClick(Series series) {
-
+        Intent i = new Intent(MainActivity.this, DetailSerieScrollingActivity.class);
+        i.putExtra("serieId", String.valueOf(series.getId()));
+        startActivity(i);
     }
 
     @Override
