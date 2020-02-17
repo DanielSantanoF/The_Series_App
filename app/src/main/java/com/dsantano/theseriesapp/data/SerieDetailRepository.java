@@ -37,6 +37,9 @@ public class SerieDetailRepository {
             @Override
             public void onResponse(Call<SerieDetail> call, Response<SerieDetail> response) {
                 if (response.isSuccessful()) {
+                    if(response.body().createdBy.isEmpty()){
+                        response.body().createdBy = null;
+                    }
                     data.setValue(response.body());
                 } else {
                     Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();

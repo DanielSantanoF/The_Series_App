@@ -4,4 +4,14 @@
     <string name="content_desciprion_image_view">Image loaded by the app</string>
     <string name="btn_login">Log In</string>
     <string name="menu_item_log_out">Log out</string>
+    <string name="title_activity_detail_serie_scrolling">DetailSerieScrollingActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="added_to_favorites_serie_detail">Added to favorites</string>
+    <string name="delete_from_favorites_serie_detail">Delete from favorites</string>
+    <string name="created_by_serie_detail">Created by:</string>
+    <string name="created_at_serie_detail">Created at:</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="title_home">Populars</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Favorites</string>
 </resources>

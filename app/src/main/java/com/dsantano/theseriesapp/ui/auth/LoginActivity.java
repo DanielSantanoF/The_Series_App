@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsantano.theseriesapp.MainActivity;
+import com.dsantano.theseriesapp.NavigationActivity;
 import com.dsantano.theseriesapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -172,8 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                                     .document(user.getUid())
                                     .set(userfb);
                         }
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        i.putExtra("uid", user.getUid());
+                        Intent i = new Intent(LoginActivity.this, NavigationActivity.class);
                         startActivity(i);
                         finish();
                     } else {

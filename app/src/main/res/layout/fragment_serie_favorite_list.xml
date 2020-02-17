@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.dsantano.myapplication.PopularsMoviesFragmentList"
+    android:name="com.dsantano.theseriesapp.ui.FavoriteSeriesList.FavoriteSerieFragmentList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="0dp"
-    android:layout_marginRight="0dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.PopularSeriesList.PopularsSeriesFragmentList"
-    tools:listitem="@layout/fragment_popularsseries" />
+    tools:context=".ui.FavoriteSeriesList.FavoriteSerieFragmentList"
+    tools:listitem="@layout/fragment_serie_favorite" />
