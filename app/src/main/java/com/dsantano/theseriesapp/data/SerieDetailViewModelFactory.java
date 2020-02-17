@@ -18,6 +18,7 @@ public class SerieDetailViewModelFactory implements ViewModelProvider.Factory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        return (T) new SerieDetailViewModel(mApplication, mParam);
+        //return (T) new SerieDetailViewModel(mApplication, mParam);
+        return null;
     }
 }

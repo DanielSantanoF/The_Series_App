@@ -52,8 +52,9 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
 
         serieId = getIntent().getExtras().get("serieId").toString();
 
-        //serieDetailViewModel = new ViewModelProvider(DetailSerieScrollingActivity.this).get(SerieDetailViewModel.class);
-        serieDetailViewModel = ViewModelProviders.of(this, new SerieDetailViewModelFactory(this.getApplication(), serieId)).get(SerieDetailViewModel.class);
+        serieDetailViewModel = new ViewModelProvider(DetailSerieScrollingActivity.this).get(SerieDetailViewModel.class);
+        serieDetailViewModel.setSerieId(serieId);
+        //serieDetailViewModel = ViewModelProviders.of(this, new SerieDetailViewModelFactory(this.getApplication(), serieId)).get(SerieDetailViewModel.class);
 
         ivToolbar = findViewById(R.id.imageViewDetailSerieToolbar);
         txtTittle = findViewById(R.id.textViewTittleSerieDetail);

@@ -23,16 +23,16 @@ public class SerieDetailRepository {
 
     String serieId;
 
-    SerieDetailRepository(String idSerie){
+    SerieDetailRepository(/*String idSerie*/){
         service = serviceGenerator.createService(TheMoviedbService.class);
-        serieDetail = getSerieDetail();
-        serieId = idSerie;
+        //serieDetail = getSerieDetail();
+        //serieId = idSerie;
     }
 
-    public LiveData<SerieDetail> getSerieDetail(){
+    public LiveData<SerieDetail> getSerieDetail(String idSerie){
         final MutableLiveData<SerieDetail> data = new MutableLiveData<>();
 
-        Call<SerieDetail> call = service.getSerieDetail(serieId, "1");
+        Call<SerieDetail> call = service.getSerieDetail(idSerie, "1");
         call.enqueue(new Callback<SerieDetail>() {
             @Override
             public void onResponse(Call<SerieDetail> call, Response<SerieDetail> response) {
@@ -48,6 +48,7 @@ public class SerieDetailRepository {
                 //Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });
+        serieDetail = data;
         return data;
     }
 }
