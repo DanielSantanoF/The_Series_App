@@ -1,7 +1,7 @@
 package com.dsantano.theseriesapp.listeners;
 
-import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.models.FavoriteSeries;
 
 public interface IFavoriteSeriesListener {
-    void onFavoriteSeriesItemClick(Series series);
+    void onFavoriteSeriesItemClick(FavoriteSeries favoriteSeries);
 }

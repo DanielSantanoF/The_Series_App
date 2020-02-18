@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -66,7 +67,6 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
 
         serieDetailViewModel = new ViewModelProvider(DetailSerieScrollingActivity.this).get(SerieDetailViewModel.class);
         serieDetailViewModel.setSerieId(serieId);
-        //serieDetailViewModel = ViewModelProviders.of(this, new SerieDetailViewModelFactory(this.getApplication(), serieId)).get(SerieDetailViewModel.class);
 
         ivToolbar = findViewById(R.id.imageViewDetailSerieToolbar);
         txtTittle = findViewById(R.id.textViewTittleSerieDetail);

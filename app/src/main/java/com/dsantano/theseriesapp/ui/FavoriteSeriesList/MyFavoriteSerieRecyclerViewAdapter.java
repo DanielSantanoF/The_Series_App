@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
+import com.dsantano.theseriesapp.models.FavoriteSeries;
 import com.dsantano.theseriesapp.models.Series;
 
 import java.util.List;
@@ -22,10 +23,10 @@ import java.util.List;
 public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteSerieRecyclerViewAdapter.ViewHolder> {
 
     private final Context ctx;
-    private final List<Series> mValues;
+    private final List<FavoriteSeries> mValues;
     private final IFavoriteSeriesListener mListener;
 
-    public MyFavoriteSerieRecyclerViewAdapter(Context ctx, List<Series> mValues, IFavoriteSeriesListener mListener) {
+    public MyFavoriteSerieRecyclerViewAdapter(Context ctx, List<FavoriteSeries> mValues, IFavoriteSeriesListener mListener) {
         this.ctx = ctx;
         this.mValues = mValues;
         this.mListener = mListener;
@@ -34,7 +35,7 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_popularsseries, parent, false);
+                .inflate(R.layout.fragment_serie_favorite, parent, false);
         return new ViewHolder(view);
     }
 
@@ -65,15 +66,13 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final ImageView ivPoster;
         public final TextView mContentView;
-        public Series mItem;
+        public FavoriteSeries mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
             ivPoster = view.findViewById(R.id.imageViewPosterPath);
             mContentView = (TextView) view.findViewById(R.id.content);
         }

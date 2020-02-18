@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.dsantano.theseriesapp.ui.notifications.NotificationsFragment"
+        android:name="com.dsantano.theseriesapp.ui.FavoriteSeriesList.FavoriteSerieFragmentList"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_serie_favorite_list" />
 </navigation>

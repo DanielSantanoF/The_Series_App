@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
+import com.dsantano.theseriesapp.models.FavoriteSeries;
 import com.dsantano.theseriesapp.models.Series;
 import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
 import com.dsantano.theseriesapp.ui.auth.LoginActivity;
@@ -24,7 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class NavigationActivity extends AppCompatActivity implements IPopularsSeriesListener {
+public class NavigationActivity extends AppCompatActivity implements IPopularsSeriesListener, IFavoriteSeriesListener {
 
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleLogin;
@@ -48,6 +50,13 @@ public class NavigationActivity extends AppCompatActivity implements IPopularsSe
     public void onPopularSeriesItemClick(Series series) {
         Intent i = new Intent(NavigationActivity.this, DetailSerieScrollingActivity.class);
         i.putExtra("serieId", String.valueOf(series.getId()));
+        startActivity(i);
+    }
+
+    @Override
+    public void onFavoriteSeriesItemClick(FavoriteSeries favoriteSeries) {
+        Intent i = new Intent(NavigationActivity.this, DetailSerieScrollingActivity.class);
+        i.putExtra("serieId", favoriteSeries.getSerieId());
         startActivity(i);
     }
 
@@ -88,5 +97,4 @@ public class NavigationActivity extends AppCompatActivity implements IPopularsSe
         });
 
     }
-
 }

@@ -18,15 +18,11 @@ public class SerieDetailRepository {
 
     TheMoviedbService service;
     ServiceGenerator serviceGenerator;
-
     LiveData<SerieDetail> serieDetail;
 
-    String serieId;
 
-    SerieDetailRepository(/*String idSerie*/){
+    SerieDetailRepository(){
         service = serviceGenerator.createService(TheMoviedbService.class);
-        //serieDetail = getSerieDetail();
-        //serieId = idSerie;
     }
 
     public LiveData<SerieDetail> getSerieDetail(String idSerie){

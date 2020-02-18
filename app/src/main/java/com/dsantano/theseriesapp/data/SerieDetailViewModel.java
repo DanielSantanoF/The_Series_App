@@ -15,15 +15,13 @@ public class SerieDetailViewModel extends AndroidViewModel {
     private LiveData<SerieDetail> serieDetail;
     private String serieId;
 
-    public SerieDetailViewModel(@NonNull Application application/*, String idSerie*/) {
+    public SerieDetailViewModel(@NonNull Application application) {
         super(application);
-        serieDetailRepository = new SerieDetailRepository(/*idSerie*/);
-        //serieDetail = serieDetailRepository.getSerieDetail(serieId);
+        serieDetailRepository = new SerieDetailRepository();
     }
 
     public LiveData<SerieDetail> getSerieDetail(){
         return serieDetailRepository.getSerieDetail(serieId);
-        //return serieDetail;
     }
 
     public void setSerieId(String id){
