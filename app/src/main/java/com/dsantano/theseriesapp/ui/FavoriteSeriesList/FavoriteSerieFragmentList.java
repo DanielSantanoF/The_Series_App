@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class FavoriteSerieFragmentList extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String uid;
     List<FavoriteSeries> favoriteSeriesList = new ArrayList<>();
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public FavoriteSerieFragmentList() {
     }
@@ -46,7 +48,6 @@ public class FavoriteSerieFragmentList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -62,25 +63,38 @@ public class FavoriteSerieFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            uid = FirebaseAuth.getInstance().getUid();
-            db.collection("users").document(uid).collection("favorites")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                favoriteSeriesList = task.getResult().toObjects(FavoriteSeries.class);
-                                adapter = new MyFavoriteSerieRecyclerViewAdapter(context, favoriteSeriesList, mListener);
-                                recyclerView.setAdapter(adapter);
-                            } else {
-                                Log.w("FB", "Error getting documents.", task.getException());
-                            }
-                        }
-                    });
+            loadData();
+            swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutFavoriteSeries);
+            //swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+            //swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadData();
+                }
+            });
         }
         return view;
     }
 
+    public void loadData(){
+        uid = FirebaseAuth.getInstance().getUid();
+        db.collection("users").document(uid).collection("favorites")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            favoriteSeriesList = task.getResult().toObjects(FavoriteSeries.class);
+                            adapter = new MyFavoriteSerieRecyclerViewAdapter(context, favoriteSeriesList, mListener);
+                            recyclerView.setAdapter(adapter);
+                        } else {
+                            Log.w("FB", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        swipeRefreshLayout.setRefreshing(false);
+    }
 
     @Override
     public void onAttach(Context context) {

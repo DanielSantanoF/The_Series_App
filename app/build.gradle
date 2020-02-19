@@ -57,4 +57,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.mikhaellopez:circularimageview:4.1.1'
     implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 }

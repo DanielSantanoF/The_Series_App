@@ -78,4 +78,5 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
         }
 
     }
+
 }
