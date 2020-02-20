@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -64,17 +65,21 @@ public class FavoriteSerieFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             loadData();
-            swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutFavoriteSeries);
-            //swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
-            //swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    loadData();
-                }
-            });
         }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutFavoriteSeries);
+//        //swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+//        //swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorAccent);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                loadData();
+//            }
+//        });
     }
 
     public void loadData(){
@@ -93,7 +98,7 @@ public class FavoriteSerieFragmentList extends Fragment {
                         }
                     }
                 });
-        swipeRefreshLayout.setRefreshing(false);
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

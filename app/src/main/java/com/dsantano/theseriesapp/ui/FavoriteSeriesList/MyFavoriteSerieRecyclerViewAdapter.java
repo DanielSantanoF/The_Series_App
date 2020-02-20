@@ -39,6 +39,8 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
         return new ViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
