@@ -2,12 +2,12 @@ package com.dsantano.theseriesapp.data.repository;
 
 import android.widget.Toast;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.common.MyApp;
-import com.dsantano.theseriesapp.models.PopularSeries;
-import com.dsantano.theseriesapp.models.SerieDetail;
+import com.dsantano.theseriesapp.models.populars.PopularSeries;
+import com.dsantano.theseriesapp.models.detail.SerieDetail;
+import com.dsantano.theseriesapp.models.recomendations.SerieRecomendations;
 import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
 import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
 
@@ -21,6 +21,7 @@ public class TmdbSeriesRepository {
     ServiceGenerator serviceGenerator;
     MutableLiveData<PopularSeries> allPopulars;
     MutableLiveData<SerieDetail> serieDetail;
+    MutableLiveData<SerieRecomendations> serieRecomendations;
 
     public TmdbSeriesRepository() {
         service = serviceGenerator.createService(TheMoviedbService.class);
@@ -69,7 +70,30 @@ public class TmdbSeriesRepository {
 
             @Override
             public void onFailure(Call<SerieDetail> call, Throwable t) {
-                //Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return data;
+    }
+
+    public MutableLiveData<SerieRecomendations> getSerieRecomendations(String idSerie){
+        final MutableLiveData<SerieRecomendations> data = new MutableLiveData<>();
+
+        Call<SerieRecomendations> call = service.getSerieRecomendations(idSerie);
+        call.enqueue(new Callback<SerieRecomendations>() {
+            @Override
+            public void onResponse(Call<SerieRecomendations> call, Response<SerieRecomendations> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                    serieRecomendations = data;
+                } else {
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SerieRecomendations> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });
         return data;

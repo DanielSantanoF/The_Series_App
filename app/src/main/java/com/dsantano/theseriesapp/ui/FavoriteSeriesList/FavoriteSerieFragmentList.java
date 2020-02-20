@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.data.viewmodel.SerieFavoritesViewModel;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
-import com.dsantano.theseriesapp.models.FavoriteSeries;
+import com.dsantano.theseriesapp.models.favorites.FavoriteSeries;
 
 import java.util.ArrayList;
 import java.util.List;

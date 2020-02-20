@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.favorites;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

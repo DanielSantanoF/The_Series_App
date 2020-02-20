@@ -1,5 +1,6 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.recomendations;
 
+import com.dsantano.theseriesapp.models.recomendations.LogoRecomended;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductionCompanySerieDetail {
+public class NetworkRecomended {
     @SerializedName("id")
     @Expose
     public Integer id;
-    @SerializedName("logo_path")
+    @SerializedName("logo")
     @Expose
-    public Object logoPath;
+    public LogoRecomended logo;
     @SerializedName("name")
     @Expose
     public String name;

@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.data.viewmodel.SeriePopularsViewModel;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
-import com.dsantano.theseriesapp.models.PopularSeries;
-import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.models.populars.PopularSeries;
+import com.dsantano.theseriesapp.models.populars.Series;
 
 import java.util.ArrayList;
 import java.util.List;

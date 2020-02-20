@@ -3,11 +3,10 @@ package com.dsantano.theseriesapp.data.repository;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.common.Constants;
-import com.dsantano.theseriesapp.models.FavoriteSeries;
+import com.dsantano.theseriesapp.models.favorites.FavoriteSeries;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +43,5 @@ public class FirebaseRepository {
                 });
         return data;
     }
-
 
 }

@@ -4,11 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.data.repository.FirebaseRepository;
-import com.dsantano.theseriesapp.models.FavoriteSeries;
+import com.dsantano.theseriesapp.models.favorites.FavoriteSeries;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class SerieFavoritesViewModel extends AndroidViewModel {
         firebaseRepository = new FirebaseRepository();
     }
 
-    public LiveData<List<FavoriteSeries>> getAllFavorites(){
+    public MutableLiveData<List<FavoriteSeries>> getAllFavorites(){
         favoriteSeriesList = firebaseRepository.getAllFavorites();
         return favoriteSeriesList;
     }

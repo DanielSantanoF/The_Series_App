@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.populars;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PopularsMovies {
+public class PopularSeries {
     @SerializedName("page")
     @Expose
     public Integer page;
@@ -24,5 +24,5 @@ public class PopularsMovies {
     public Integer totalPages;
     @SerializedName("results")
     @Expose
-    public List<Movie> results = null;
+    public List<Series> results = null;
 }

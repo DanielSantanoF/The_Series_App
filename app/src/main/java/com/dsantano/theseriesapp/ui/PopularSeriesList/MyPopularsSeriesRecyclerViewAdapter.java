@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
-import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.models.populars.Series;
 
 import java.util.List;
 

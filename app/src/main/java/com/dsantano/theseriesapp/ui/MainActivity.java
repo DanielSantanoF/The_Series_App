@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
-import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.models.populars.Series;
 import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
 import com.dsantano.theseriesapp.ui.auth.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

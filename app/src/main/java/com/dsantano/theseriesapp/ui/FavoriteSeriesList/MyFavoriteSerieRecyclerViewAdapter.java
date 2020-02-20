@@ -3,7 +3,6 @@ package com.dsantano.theseriesapp.ui.FavoriteSeriesList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
-import com.dsantano.theseriesapp.models.FavoriteSeries;
-import com.dsantano.theseriesapp.models.Series;
+import com.dsantano.theseriesapp.models.favorites.FavoriteSeries;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.detail;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,20 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatedBySerieDetail {
+public class GenreSerieDetail {
     @SerializedName("id")
     @Expose
     public Integer id;
-    @SerializedName("credit_id")
-    @Expose
-    public String creditId;
     @SerializedName("name")
     @Expose
     public String name;
-    @SerializedName("gender")
-    @Expose
-    public Integer gender;
-    @SerializedName("profile_path")
-    @Expose
-    public String profilePath;
 }

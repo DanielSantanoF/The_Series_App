@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.data.viewmodel.SerieDetailViewModel;
-import com.dsantano.theseriesapp.models.SerieDetail;
+import com.dsantano.theseriesapp.models.detail.SerieDetail;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -106,7 +106,11 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                     String defaultPhoto = Constants.DEFAULT_SERIE_PHOTO;
                     serieDetailfb = new HashMap<>();
                     serieDetailfb.put("serieId", serieId);
-                    serieDetailfb.put("posterPath", posterPath);
+                    if(!posterPath.isEmpty()){
+                        serieDetailfb.put("posterPath", posterPath);
+                    } else {
+                        serieDetailfb.put("posterPath", defaultPhoto);
+                    }
                     serieDetailfb.put("serieName", name);
                     DocumentReference docIdRef = db.collection(Constants.FIREBASE_COLLECTION_USERS).document(uid).collection(Constants.FIREBASE_COLLECTION_FAVORITES).document(serieId);
                     docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -116,14 +120,14 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     Log.d("FB", "Document exists!");
-                                    db.collection("users")
+                                    db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                             .document(uid)
                                             .collection("favorites")
                                             .document(serieId)
                                             .update(serieDetailfb);
                                 } else {
                                     Log.d("FB", "Document does not exist!");
-                                    db.collection("users")
+                                    db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                             .document(uid)
                                             .collection("favorites")
                                             .document(serieId)

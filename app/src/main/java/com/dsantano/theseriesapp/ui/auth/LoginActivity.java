@@ -3,6 +3,7 @@ package com.dsantano.theseriesapp.ui.auth;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +17,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.dsantano.theseriesapp.ui.NavigationActivity;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
+import com.dsantano.theseriesapp.ui.NavigationActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 .load(Constants.APP_LOGO)
                 .transform(new CircleCrop())
                 .error(Glide.with(this).load(R.drawable.image_not_loaded_icon))
-                .thumbnail(Glide.with(this).load(R.drawable.loading_gif).transform( new CircleCrop()))
+                .thumbnail(Glide.with(this).load(R.drawable.loading_gif).transform(new CircleCrop()))
                 .into(ivLogo);
 
         mAuth = FirebaseAuth.getInstance();
@@ -87,13 +88,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             FirebaseUser user = mAuth.getCurrentUser();
             updateUI(user);
         }
     }
 
-    public void signInGoogle(){
+    public void signInGoogle() {
         Intent loginIntent = mGoogleLogin.getSignInIntent();
         startActivityForResult(loginIntent, GOOGLE_LOGIN);
     }
@@ -101,14 +102,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GOOGLE_LOGIN){
+        if (requestCode == GOOGLE_LOGIN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try{
+            try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if(account != null) {
+                if (account != null) {
                     firebaseAuthWithGoogle(account);
                 }
-            } catch (ApiException e){
+            } catch (ApiException e) {
                 e.printStackTrace();
             }
         }
@@ -121,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -135,12 +136,12 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser u) {
         checkIsLogged();
         user = u;
-        if(user != null) {
+        if (user != null) {
             defaultPhoto = Constants.DEFAULT_USER_PHOTO;
             userfb = new HashMap<>();
             userfb.put("uid", user.getUid());
             userfb.put("email", user.getEmail());
-            if(user.getDisplayName() == null || user.getDisplayName().equals("")){
+            if (user.getDisplayName() == null || user.getDisplayName().equals("")) {
                 nameOfEmail = user.getEmail().toString().split("@")[0];
                 name = nameOfEmail;
                 userfb.put("name", nameOfEmail);
@@ -148,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 name = user.getDisplayName();
                 userfb.put("name", user.getDisplayName());
             }
-            if(user.getPhotoUrl() == null){
+            if (user.getPhotoUrl() == null) {
                 photo = defaultPhoto;
                 userfb.put("photo", defaultPhoto);
             } else {
@@ -164,12 +165,12 @@ public class LoginActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d("FB", "Document exists!");
-                            db.collection("users")
+                            db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                     .document(user.getUid())
                                     .update(userfb);
                         } else {
                             Log.d("FB", "Document does not exist!");
-                            db.collection("users")
+                            db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                     .document(user.getUid())
                                     .set(userfb);
                         }
@@ -186,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void logOut(){
+    public void logOut() {
         FirebaseAuth.getInstance().signOut();
         mGoogleLogin.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
@@ -196,8 +197,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void checkIsLogged(){
-        if(FirebaseAuth.getInstance().getUid() != null){
+    public void checkIsLogged() {
+        if (FirebaseAuth.getInstance().getUid() != null) {
             btnLogin.setVisibility(View.GONE);
             txtNameApp.setVisibility(View.GONE);
             progressBarLogin.setVisibility(View.VISIBLE);

@@ -1,5 +1,10 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.detail;
 
+import com.dsantano.theseriesapp.models.detail.CreatedBySerieDetail;
+import com.dsantano.theseriesapp.models.detail.GenreSerieDetail;
+import com.dsantano.theseriesapp.models.detail.LastEpisodeToAirSerieDetail;
+import com.dsantano.theseriesapp.models.detail.ProductionCompanySerieDetail;
+import com.dsantano.theseriesapp.models.detail.SeasonSerieDetail;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

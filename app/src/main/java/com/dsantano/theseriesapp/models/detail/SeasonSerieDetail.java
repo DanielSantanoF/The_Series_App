@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.models;
+package com.dsantano.theseriesapp.models.detail;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
