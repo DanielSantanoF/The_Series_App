@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.data;
+package com.dsantano.theseriesapp.data.viewmodel;
 
 import android.app.Application;
 
@@ -7,21 +7,23 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.dsantano.theseriesapp.data.repository.TmdbSeriesRepository;
 import com.dsantano.theseriesapp.models.SerieDetail;
 
 public class SerieDetailViewModel extends AndroidViewModel {
 
-    private SerieDetailRepository serieDetailRepository;
-    private LiveData<SerieDetail> serieDetail;
+    private TmdbSeriesRepository tmdbSeriesRepository;
+    private MutableLiveData<SerieDetail> serieDetail;
     private String serieId;
 
     public SerieDetailViewModel(@NonNull Application application) {
         super(application);
-        serieDetailRepository = new SerieDetailRepository();
+        tmdbSeriesRepository = new TmdbSeriesRepository();
     }
 
     public LiveData<SerieDetail> getSerieDetail(){
-        return serieDetailRepository.getSerieDetail(serieId);
+        serieDetail = tmdbSeriesRepository.getSerieDetail(serieId);
+        return serieDetail;
     }
 
     public void setSerieId(String id){

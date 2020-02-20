@@ -1,10 +1,12 @@
-package com.dsantano.theseriesapp;
+package com.dsantano.theseriesapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dsantano.theseriesapp.R;
+import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.FavoriteSeries;
@@ -49,14 +51,14 @@ public class NavigationActivity extends AppCompatActivity implements IPopularsSe
     @Override
     public void onPopularSeriesItemClick(Series series) {
         Intent i = new Intent(NavigationActivity.this, DetailSerieScrollingActivity.class);
-        i.putExtra("serieId", String.valueOf(series.getId()));
+        i.putExtra(Constants.EXTRA_SERIE_ID, String.valueOf(series.getId()));
         startActivity(i);
     }
 
     @Override
     public void onFavoriteSeriesItemClick(FavoriteSeries favoriteSeries) {
         Intent i = new Intent(NavigationActivity.this, DetailSerieScrollingActivity.class);
-        i.putExtra("serieId", favoriteSeries.getSerieId());
+        i.putExtra(Constants.EXTRA_SERIE_ID, favoriteSeries.getSerieId());
         startActivity(i);
     }
 

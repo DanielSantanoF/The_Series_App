@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/swipeRefreshLayoutFavoriteSeries"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
+    android:id="@+id/listFavoriteSeries"
     android:name="com.dsantano.theseriesapp.ui.FavoriteSeriesList.FavoriteSerieFragmentList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,6 +12,5 @@
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.FavoriteSeriesList.FavoriteSerieFragmentList"
-    tools:listitem="@layout/fragment_serie_favorite" />
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    tools:listitem="@layout/fragment_serie_favorite" >
+</androidx.recyclerview.widget.RecyclerView>

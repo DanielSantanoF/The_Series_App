@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_navigation"></activity>
         <activity
             android:name=".ui.DetailSerie.DetailSerieScrollingActivity"
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>

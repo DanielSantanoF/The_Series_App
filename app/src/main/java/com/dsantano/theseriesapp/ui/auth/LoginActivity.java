@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.dsantano.theseriesapp.MainActivity;
-import com.dsantano.theseriesapp.NavigationActivity;
+import com.dsantano.theseriesapp.ui.NavigationActivity;
 import com.dsantano.theseriesapp.R;
+import com.dsantano.theseriesapp.common.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         txtNameApp = findViewById(R.id.textViewNameAppLogin);
 
         Glide.with(this)
-                .load("https://images.squarespace-cdn.com/content/v1/54ce88bfe4b030c6f93e3d9f/1536055880630-JQEH03P1VGG67PZS5F4O/ke17ZwdGBToddI8pDm48kPmAnfhQvqhMptgWHhbKoyhZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxHmI13PUQExzHe63IkveXOojHqdB-MF5SqgJGovDTk0l_7uBv7xs1F-MHtfbN3UJ8/BTGgreen_Icon.png")
+                .load(Constants.APP_LOGO)
                 .transform(new CircleCrop())
                 .error(Glide.with(this).load(R.drawable.image_not_loaded_icon))
                 .thumbnail(Glide.with(this).load(R.drawable.loading_gif).transform( new CircleCrop()))
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         checkIsLogged();
         user = u;
         if(user != null) {
-            defaultPhoto = "https://covitalidad.edu.umh.es/wp-content/uploads/sites/1352/2018/06/default-user.png";
+            defaultPhoto = Constants.DEFAULT_USER_PHOTO;
             userfb = new HashMap<>();
             userfb.put("uid", user.getUid());
             userfb.put("email", user.getEmail());
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 userfb.put("photo", user.getPhotoUrl().toString());
             }
             email = user.getEmail();
-            DocumentReference docIdRef = db.collection("users").document(user.getUid());
+            DocumentReference docIdRef = db.collection(Constants.FIREBASE_COLLECTION_USERS).document(user.getUid());
             docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

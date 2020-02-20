@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp;
+package com.dsantano.theseriesapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.dsantano.theseriesapp.R;
+import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.Series;
 import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements IPopularsSeriesLi
     @Override
     public void onPopularSeriesItemClick(Series series) {
         Intent i = new Intent(MainActivity.this, DetailSerieScrollingActivity.class);
-        i.putExtra("serieId", String.valueOf(series.getId()));
+        i.putExtra(Constants.EXTRA_SERIE_ID, String.valueOf(series.getId()));
         startActivity(i);
     }
 

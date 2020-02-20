@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dsantano.theseriesapp.R;
-import com.dsantano.theseriesapp.data.SeriesGetAllPopularsViewModel;
+import com.dsantano.theseriesapp.data.viewmodel.SeriePopularsViewModel;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
 import com.dsantano.theseriesapp.models.PopularSeries;
 import com.dsantano.theseriesapp.models.Series;
@@ -30,7 +30,7 @@ public class PopularsSeriesFragmentList extends Fragment {
     Context context;
     RecyclerView recyclerView;
     MyPopularsSeriesRecyclerViewAdapter adapter;
-    SeriesGetAllPopularsViewModel seriesGetAllPopularsViewModel;
+    SeriePopularsViewModel seriePopularsViewModel;
     List<Series> popularSeriesList = new ArrayList<>();
 
     public PopularsSeriesFragmentList() {
@@ -39,7 +39,7 @@ public class PopularsSeriesFragmentList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        seriesGetAllPopularsViewModel = new ViewModelProvider(getActivity()).get(SeriesGetAllPopularsViewModel.class);
+        seriePopularsViewModel = new ViewModelProvider(getActivity()).get(SeriePopularsViewModel.class);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PopularsSeriesFragmentList extends Fragment {
     }
 
     public void loadPopularsMovies(){
-        seriesGetAllPopularsViewModel.getAllPopulars().observe(getActivity(), new Observer<PopularSeries>() {
+        seriePopularsViewModel.getAllPopulars().observe(getActivity(), new Observer<PopularSeries>() {
             @Override
             public void onChanged(PopularSeries popularSeries) {
                 popularSeriesList = popularSeries.results;

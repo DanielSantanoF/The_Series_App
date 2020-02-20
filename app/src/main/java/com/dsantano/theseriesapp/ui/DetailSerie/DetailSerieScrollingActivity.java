@@ -5,8 +5,7 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsantano.theseriesapp.common.Constants;
-import com.dsantano.theseriesapp.data.SerieDetailViewModel;
-import com.dsantano.theseriesapp.data.SerieDetailViewModelFactory;
+import com.dsantano.theseriesapp.data.viewmodel.SerieDetailViewModel;
 import com.dsantano.theseriesapp.models.SerieDetail;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.Menu;
@@ -51,7 +49,6 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
     CollapsingToolbarLayout toolbarLayout;
     Map<String, Object> serieDetailfb;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth;
     boolean isFavorite = false;
     FloatingActionButton fab;
 
@@ -63,7 +60,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         toolbarLayout = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
 
-        serieId = getIntent().getExtras().get("serieId").toString();
+        serieId = getIntent().getExtras().get(Constants.EXTRA_SERIE_ID).toString();
 
         serieDetailViewModel = new ViewModelProvider(DetailSerieScrollingActivity.this).get(SerieDetailViewModel.class);
         serieDetailViewModel.setSerieId(serieId);
@@ -86,7 +83,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isFavorite){
-                    db.collection("users").document(uid).collection("favorites").document(serieId)
+                    db.collection(Constants.FIREBASE_COLLECTION_USERS).document(uid).collection(Constants.FIREBASE_COLLECTION_FAVORITES).document(serieId)
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -106,12 +103,12 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                 } else {
                     String name = serieDetailData.getName();
                     String posterPath = serieDetailData.getPosterPath();
-                    String defaultPhoto = "https://www.wpextremo.com/wp-content/uploads/2019/11/500-internal-server-error-featured-image-1.png";
+                    String defaultPhoto = Constants.DEFAULT_SERIE_PHOTO;
                     serieDetailfb = new HashMap<>();
                     serieDetailfb.put("serieId", serieId);
                     serieDetailfb.put("posterPath", posterPath);
                     serieDetailfb.put("serieName", name);
-                    DocumentReference docIdRef = db.collection("users").document(uid).collection("favorites").document(serieId);
+                    DocumentReference docIdRef = db.collection(Constants.FIREBASE_COLLECTION_USERS).document(uid).collection(Constants.FIREBASE_COLLECTION_FAVORITES).document(serieId);
                     docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -146,7 +143,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
     }
 
     public void checkIsFavorite(){
-        DocumentReference docIdRef = db.collection("users").document(uid).collection("favorites").document(serieId);
+        DocumentReference docIdRef = db.collection(Constants.FIREBASE_COLLECTION_USERS).document(uid).collection(Constants.FIREBASE_COLLECTION_FAVORITES).document(serieId);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

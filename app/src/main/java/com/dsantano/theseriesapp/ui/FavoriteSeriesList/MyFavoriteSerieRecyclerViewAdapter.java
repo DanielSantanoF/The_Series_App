@@ -23,7 +23,7 @@ import java.util.List;
 public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteSerieRecyclerViewAdapter.ViewHolder> {
 
     private final Context ctx;
-    private final List<FavoriteSeries> mValues;
+    private List<FavoriteSeries> mValues;
     private final IFavoriteSeriesListener mListener;
 
     public MyFavoriteSerieRecyclerViewAdapter(Context ctx, List<FavoriteSeries> mValues, IFavoriteSeriesListener mListener) {
@@ -43,27 +43,38 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        Glide
-                .with(ctx)
-                .load(Constants.POSTER_PATH_URL_W500 + holder.mItem.getPosterPath())
-                .error(Glide.with(ctx).load(R.drawable.image_not_loaded_icon))
-                .thumbnail(Glide.with(ctx).load(R.drawable.loading_gif).transform( new CenterCrop()))
-                .into(holder.ivPoster);
+        if(mValues != null) {
+            holder.mItem = mValues.get(position);
+            Glide
+                    .with(ctx)
+                    .load(Constants.POSTER_PATH_URL_W500 + holder.mItem.getPosterPath())
+                    .error(Glide.with(ctx).load(R.drawable.image_not_loaded_icon))
+                    .thumbnail(Glide.with(ctx).load(R.drawable.loading_gif).transform(new CenterCrop()))
+                    .into(holder.ivPoster);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onFavoriteSeriesItemClick(holder.mItem);
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        mListener.onFavoriteSeriesItemClick(holder.mItem);
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+
+    public void setData(List<FavoriteSeries> list){
+        this.mValues = list;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        if(mValues != null){
+            return mValues.size();
+        } else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
