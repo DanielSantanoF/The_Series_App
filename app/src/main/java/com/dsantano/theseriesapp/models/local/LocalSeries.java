@@ -5,14 +5,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity(tableName = "popular_result_list_table")
 public class LocalSeries {
@@ -22,20 +20,12 @@ public class LocalSeries {
     public String originalName;
 
     @NonNull
-    @ColumnInfo(name = "genreIds")
-    public List<Integer> genreIds = null;
-
-    @NonNull
     @ColumnInfo(name = "name")
     public String name;
 
     @NonNull
     @ColumnInfo(name = "popularity")
     public Double popularity;
-
-    @NonNull
-    @ColumnInfo(name = "originCountry")
-    public List<String> originCountry = null;
 
     @NonNull
     @ColumnInfo(name = "voteCount")
@@ -69,4 +59,5 @@ public class LocalSeries {
     @NonNull
     @ColumnInfo(name = "posterPath")
     public String posterPath;
+
 }

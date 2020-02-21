@@ -1,6 +1,6 @@
 package com.dsantano.theseriesapp.models.local.dao;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -20,5 +20,5 @@ public interface LocalSeriesDao {
     void deleteAll();
 
     @Query("SELECT * from popular_result_list_table ORDER BY id ASC")
-    MutableLiveData<List<LocalSeries>> getAllPopularsSeriesAsc();
+    LiveData<List<LocalSeries>> getAllPopularsSeriesAsc();
 }

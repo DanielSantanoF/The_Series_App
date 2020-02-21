@@ -25,4 +25,5 @@ public class PopularSeries {
     @SerializedName("results")
     @Expose
     public List<Series> results = null;
+
 }

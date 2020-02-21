@@ -52,4 +52,5 @@ public class Series {
     @SerializedName("poster_path")
     @Expose
     public String posterPath;
+
 }
