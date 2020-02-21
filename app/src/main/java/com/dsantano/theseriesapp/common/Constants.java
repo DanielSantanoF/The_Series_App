@@ -10,5 +10,7 @@ public class Constants {
     public static final String DEFAULT_USER_PHOTO = "https://covitalidad.edu.umh.es/wp-content/uploads/sites/1352/2018/06/default-user.png";
     public static final String EXTRA_SERIE_ID = "serieId";
     public static final String DEFAULT_SERIE_PHOTO = "https://www.wpextremo.com/wp-content/uploads/2019/11/500-internal-server-error-featured-image-1.png";
+    public static final String APP_SETTINGS_SHARED_PREFERENCES = "APP_SETTINGS";
+    public static final String SERIE_RECOMENDATIONS_SHARED_PREFERENCES = "idSerieRecomendations";
 
 }

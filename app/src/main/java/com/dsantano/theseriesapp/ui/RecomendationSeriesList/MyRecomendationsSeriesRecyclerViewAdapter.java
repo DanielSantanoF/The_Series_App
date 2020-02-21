@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.ui.FavoriteSeriesList;
+package com.dsantano.theseriesapp.ui.RecomendationSeriesList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,23 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
-import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
-import com.dsantano.theseriesapp.models.remote.favorites.FavoriteSeries;
+import com.dsantano.theseriesapp.listeners.IRecomendationsSeriesListener;
+import com.dsantano.theseriesapp.models.remote.recomendations.SerieRecomended;
 
 import java.util.List;
 
-public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteSerieRecyclerViewAdapter.ViewHolder> {
+public class MyRecomendationsSeriesRecyclerViewAdapter extends RecyclerView.Adapter<MyRecomendationsSeriesRecyclerViewAdapter.ViewHolder> {
 
-    private final Context ctx;
-    private List<FavoriteSeries> mValues;
-    private final IFavoriteSeriesListener mListener;
+    private final Context context;
+    private List<SerieRecomended> mValues;
+    private final IRecomendationsSeriesListener mListener;
 
-    public MyFavoriteSerieRecyclerViewAdapter(Context ctx, List<FavoriteSeries> mValues, IFavoriteSeriesListener mListener) {
-        this.ctx = ctx;
+    public MyRecomendationsSeriesRecyclerViewAdapter(Context context, List<SerieRecomended> mValues, IRecomendationsSeriesListener mListener) {
+        this.context = context;
         this.mValues = mValues;
         this.mListener = mListener;
     }
@@ -33,35 +34,33 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_serie_favorite, parent, false);
+                .inflate(R.layout.fragment_series_recomendations, parent, false);
         return new ViewHolder(view);
     }
-
-
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if(mValues != null) {
             holder.mItem = mValues.get(position);
             Glide
-                    .with(ctx)
+                    .with(context)
                     .load(Constants.POSTER_PATH_URL_W500 + holder.mItem.getPosterPath())
-                    .error(Glide.with(ctx).load(R.drawable.image_not_loaded_icon))
-                    .thumbnail(Glide.with(ctx).load(R.drawable.loading_gif).transform(new CenterCrop()))
-                    .into(holder.ivPoster);
+                    .error(Glide.with(context).load(R.drawable.image_not_loaded_icon))
+                    .thumbnail(Glide.with(context).load(R.drawable.loading_gif).transform( new CenterCrop()))
+                    .into(holder.ivPosterPath);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
-                        mListener.onFavoriteSeriesItemClick(holder.mItem);
+                        mListener.onRecomendedSerieClick(holder.mItem);
                     }
                 }
             });
         }
     }
 
-    public void setData(List<FavoriteSeries> list){
+    public void setData(List<SerieRecomended> list){
         this.mValues = list;
         notifyDataSetChanged();
     }
@@ -77,17 +76,16 @@ public class MyFavoriteSerieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final ImageView ivPoster;
+        public final ImageView ivPosterPath;
         public final TextView mContentView;
-        public FavoriteSeries mItem;
+        public SerieRecomended mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            ivPoster = view.findViewById(R.id.imageViewPosterPath);
+            ivPosterPath = view.findViewById(R.id.imageViewPosterPath);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 
     }
-
 }

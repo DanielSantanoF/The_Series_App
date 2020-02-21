@@ -15,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dsantano.theseriesapp.R;
-import com.dsantano.theseriesapp.data.viewmodel.SeriePopularsViewModel;
+import com.dsantano.theseriesapp.data.remote.viewmodel.SeriePopularsViewModel;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
-import com.dsantano.theseriesapp.models.populars.PopularSeries;
-import com.dsantano.theseriesapp.models.populars.Series;
+import com.dsantano.theseriesapp.models.remote.populars.PopularSeries;
+import com.dsantano.theseriesapp.models.remote.populars.Series;
 
 import java.util.ArrayList;
 import java.util.List;

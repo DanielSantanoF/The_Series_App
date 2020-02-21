@@ -1,8 +1,8 @@
 package com.dsantano.theseriesapp.retrofit;
 
-import com.dsantano.theseriesapp.models.populars.PopularSeries;
-import com.dsantano.theseriesapp.models.detail.SerieDetail;
-import com.dsantano.theseriesapp.models.recomendations.SerieRecomendations;
+import com.dsantano.theseriesapp.models.remote.populars.PopularSeries;
+import com.dsantano.theseriesapp.models.remote.detail.SerieDetail;
+import com.dsantano.theseriesapp.models.remote.recomendations.SerieRecomendations;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

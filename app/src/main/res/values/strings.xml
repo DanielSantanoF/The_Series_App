@@ -13,4 +13,5 @@
     <string name="title_home">Populares</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Favoritas</string>
+    <string name="btn_recomendations">Recomendaciones</string>
 </resources>

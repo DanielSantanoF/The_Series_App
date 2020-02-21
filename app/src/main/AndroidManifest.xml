@@ -14,9 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.RecomendationSeriesList.RecomendationsActivity"></activity>
         <activity
             android:name=".ui.NavigationActivity"
-            android:label="@string/title_activity_navigation"></activity>
+            android:label="@string/title_activity_navigation" />
         <activity
             android:name=".ui.DetailSerie.DetailSerieScrollingActivity"
             android:label="@string/title_activity_detail_serie_scrolling"
