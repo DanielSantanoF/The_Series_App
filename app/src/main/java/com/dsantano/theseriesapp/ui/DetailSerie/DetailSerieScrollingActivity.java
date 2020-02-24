@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.data.remote.viewmodel.SerieDetailViewModel;
+import com.dsantano.theseriesapp.models.remote.detail.SeasonSerieDetail;
+import com.dsantano.theseriesapp.models.remote.detail.SeasonsSpinnerSerieDetail;
 import com.dsantano.theseriesapp.models.remote.detail.SerieDetail;
 import com.dsantano.theseriesapp.ui.RecomendationSeriesList.RecomendationsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,9 +29,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +44,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DetailSerieScrollingActivity extends AppCompatActivity {
 
     ImageView ivToolbar, ivDetail, ivAuthor;
     TextView txtTittle, txtDescription, txtCreatedAt, txtCreatedBy;
+    Spinner spnSeasons;
     RatingBar ratingBar;
     String serieId, uid;
     SerieDetailViewModel serieDetailViewModel;
@@ -57,6 +65,8 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
     boolean isFavorite = false;
     FloatingActionButton fab;
     Button btnRecomendations;
+    List<SeasonsSpinnerSerieDetail> seasonsList = new ArrayList<>();
+    ArrayAdapter seaonsSpinnerArrayAsapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         txtCreatedAt = findViewById(R.id.textViewCreatedAtDetail);
         txtCreatedBy = findViewById(R.id.textViewAuthorNameDetail);
         btnRecomendations = findViewById(R.id.buttonSeeRecomendationsSerieDetail);
+        spnSeasons = findViewById(R.id.spinnerSeasonsSerieDetail);
 
         /*
         SharedPreferences.Editor editor = MainActivity.this.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE).edit();
@@ -167,6 +178,18 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        spnSeasons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(DetailSerieScrollingActivity.this, "click en item", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void checkIsFavorite(){
@@ -202,44 +225,52 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         serieDetailViewModel.getSerieDetail().observe(DetailSerieScrollingActivity.this, new Observer<SerieDetail>() {
             @Override
             public void onChanged(SerieDetail serieDetail) {
-                checkIsFavorite();
-                serieDetailData = serieDetail;
-                toolbarLayout.setTitle(serieDetail.getName());
-                txtTittle.setText(serieDetail.getName());
-                txtDescription.setText(serieDetail.getOverview());
-                txtCreatedAt.setText(getResources().getString(R.string.created_at_serie_detail) + " " + serieDetail.getFirstAirDate());
-                if(serieDetail.getCreatedBy() == null){
-                    txtCreatedBy.setText("");
+                if (serieDetail != null) {
+                    checkIsFavorite();
+                    serieDetailData = serieDetail;
+                    toolbarLayout.setTitle(serieDetail.getName());
+                    txtTittle.setText(serieDetail.getName());
+                    txtDescription.setText(serieDetail.getOverview());
+                    txtCreatedAt.setText(getResources().getString(R.string.created_at_serie_detail) + " " + serieDetail.getFirstAirDate());
+                    if (serieDetail.getCreatedBy() == null) {
+                        txtCreatedBy.setText("");
+                        Glide
+                                .with(DetailSerieScrollingActivity.this)
+                                .load(R.drawable.image_not_loaded_icon)
+                                .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif).transform(new CircleCrop()))
+                                .transform(new CircleCrop())
+                                .into(ivAuthor);
+                    } else {
+                        txtCreatedBy.setText(getResources().getString(R.string.created_by_serie_detail) + " " + serieDetail.getCreatedBy().get(0).getName());
+                        Glide
+                                .with(DetailSerieScrollingActivity.this)
+                                .load(Constants.POSTER_PATH_URL_W500 + serieDetail.createdBy.get(0).profilePath)
+                                .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon).transform(new CircleCrop()))
+                                .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif).transform(new CircleCrop()))
+                                .transform(new CircleCrop())
+                                .into(ivAuthor);
+                    }
+                    float rating = serieDetail.getVoteAverage().floatValue();
+                    ratingBar.setRating(rating);
+                    for(int i = 0; i<serieDetail.getSeasons().size(); i++){
+                        SeasonsSpinnerSerieDetail itemSpinner = new SeasonsSpinnerSerieDetail(serieDetail.getSeasons().get(i).getSeasonNumber(), serieDetail.getSeasons().get(i).getEpisodeCount(), serieDetail.getSeasons().get(i).getName());
+                        seasonsList.add(itemSpinner);
+                    }
+                    seaonsSpinnerArrayAsapter = new ArrayAdapter(DetailSerieScrollingActivity.this, R.layout.support_simple_spinner_dropdown_item, seasonsList);
+                    spnSeasons.setAdapter(seaonsSpinnerArrayAsapter);
                     Glide
                             .with(DetailSerieScrollingActivity.this)
-                            .load(R.drawable.image_not_loaded_icon)
-                            .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif).transform(new CircleCrop()))
-                            .transform(new CircleCrop())
-                            .into(ivAuthor);
-                } else {
-                    txtCreatedBy.setText(getResources().getString(R.string.created_by_serie_detail) + " " + serieDetail.getCreatedBy().get(0).getName());
+                            .load(Constants.POSTER_PATH_URL_W500 + serieDetail.backdropPath)
+                            .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
+                            .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif))
+                            .into(ivDetail);
                     Glide
                             .with(DetailSerieScrollingActivity.this)
-                            .load(Constants.POSTER_PATH_URL_W500 + serieDetail.createdBy.get(0).profilePath)
-                            .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon).transform(new CircleCrop()))
-                            .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif).transform(new CircleCrop()))
-                            .transform(new CircleCrop())
-                            .into(ivAuthor);
+                            .load(Constants.POSTER_PATH_URL_W500 + serieDetail.posterPath)
+                            .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
+                            .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif))
+                            .into(ivToolbar);
                 }
-                float rating = serieDetail.getVoteAverage().floatValue();
-                ratingBar.setRating(rating);
-                Glide
-                        .with(DetailSerieScrollingActivity.this)
-                        .load(Constants.POSTER_PATH_URL_W500 + serieDetail.backdropPath)
-                        .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
-                        .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif))
-                        .into(ivDetail);
-                Glide
-                        .with(DetailSerieScrollingActivity.this)
-                        .load(Constants.POSTER_PATH_URL_W500 + serieDetail.posterPath)
-                        .error(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.image_not_loaded_icon))
-                        .thumbnail(Glide.with(DetailSerieScrollingActivity.this).load(R.drawable.loading_gif))
-                        .into(ivToolbar);
             }
         });
     }

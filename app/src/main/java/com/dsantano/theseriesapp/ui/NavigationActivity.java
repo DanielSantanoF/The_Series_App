@@ -9,6 +9,8 @@ import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
+import com.dsantano.theseriesapp.models.local.LocalSeries;
+import com.dsantano.theseriesapp.models.local.dao.LocalSeriesDao;
 import com.dsantano.theseriesapp.models.remote.favorites.FavoriteSeries;
 import com.dsantano.theseriesapp.models.remote.populars.Series;
 import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
@@ -27,6 +29,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import static com.dsantano.theseriesapp.data.local.roomdatabase.LocalSeriesRoomDatabase.databaseWriteExecutor;
 
 public class NavigationActivity extends AppCompatActivity implements IPopularsSeriesListener, IFavoriteSeriesListener {
 

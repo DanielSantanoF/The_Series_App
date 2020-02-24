@@ -14,4 +14,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Favoritas</string>
     <string name="btn_recomendations">Recomendaciones</string>
+    <string name="tmdb_api_language">es-ES</string>
 </resources>

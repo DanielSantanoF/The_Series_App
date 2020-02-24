@@ -1,6 +1,8 @@
 package com.dsantano.theseriesapp.retrofit;
 
+import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
+import com.dsantano.theseriesapp.common.MyApp;
 
 import java.io.IOException;
 
@@ -43,8 +45,8 @@ public class ServiceGenerator {
                     Request original = chain.request();
                     HttpUrl originalHttpUrl = original.url();
                     HttpUrl url = originalHttpUrl.newBuilder()
-                            .addQueryParameter("api_key", Constants.API_KEY_THE_MOVIEDB)
-                            .addQueryParameter("language", "en-US")
+                            .addQueryParameter(Constants.QUERY_PARAM_API_KEY, Constants.API_KEY_THE_MOVIEDB)
+                            .addQueryParameter(Constants.QUERY_PARAM_LANGUAGE, MyApp.getContext().getResources().getString(R.string.tmdb_api_language))
                             .build();
                     Request.Builder requestBuilder = original.newBuilder()
                             .url(url);
