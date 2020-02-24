@@ -256,6 +256,7 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                         SeasonsSpinnerSerieDetail itemSpinner = new SeasonsSpinnerSerieDetail(serieDetail.getSeasons().get(i).getSeasonNumber(), serieDetail.getSeasons().get(i).getEpisodeCount(), serieDetail.getSeasons().get(i).getName());
                         seasonsList.add(itemSpinner);
                     }
+                    //https://www.youtube.com/watch?v=P55qX1-dsZI
                     seaonsSpinnerArrayAsapter = new ArrayAdapter(DetailSerieScrollingActivity.this, R.layout.support_simple_spinner_dropdown_item, seasonsList);
                     spnSeasons.setAdapter(seaonsSpinnerArrayAsapter);
                     Glide
