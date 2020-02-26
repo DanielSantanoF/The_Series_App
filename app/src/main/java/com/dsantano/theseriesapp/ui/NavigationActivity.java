@@ -9,10 +9,12 @@ import com.dsantano.theseriesapp.R;
 import com.dsantano.theseriesapp.common.Constants;
 import com.dsantano.theseriesapp.listeners.IFavoriteSeriesListener;
 import com.dsantano.theseriesapp.listeners.IPopularsSeriesListener;
+import com.dsantano.theseriesapp.listeners.ISerieProgressListener;
 import com.dsantano.theseriesapp.models.local.LocalSeries;
 import com.dsantano.theseriesapp.models.local.dao.LocalSeriesDao;
 import com.dsantano.theseriesapp.models.remote.favorites.FavoriteSeries;
 import com.dsantano.theseriesapp.models.remote.populars.Series;
+import com.dsantano.theseriesapp.models.remote.serieprogress.SerieProgress;
 import com.dsantano.theseriesapp.ui.DetailSerie.DetailSerieScrollingActivity;
 import com.dsantano.theseriesapp.ui.auth.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,7 +36,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import static com.dsantano.theseriesapp.data.local.roomdatabase.LocalSeriesRoomDatabase.databaseWriteExecutor;
 
-public class NavigationActivity extends AppCompatActivity implements IPopularsSeriesListener, IFavoriteSeriesListener {
+public class NavigationActivity extends AppCompatActivity implements IPopularsSeriesListener, IFavoriteSeriesListener, ISerieProgressListener {
 
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleLogin;
@@ -104,5 +106,12 @@ public class NavigationActivity extends AppCompatActivity implements IPopularsSe
             }
         });
 
+    }
+
+    @Override
+    public void onSerieProgressItemClick(SerieProgress serieProgress) {
+        Intent i = new Intent(NavigationActivity.this, DetailSerieScrollingActivity.class);
+        i.putExtra(Constants.EXTRA_SERIE_ID, serieProgress.getSerieId());
+        startActivity(i);
     }
 }

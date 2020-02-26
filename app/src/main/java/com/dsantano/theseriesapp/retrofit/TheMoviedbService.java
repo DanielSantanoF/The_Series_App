@@ -1,7 +1,8 @@
 package com.dsantano.theseriesapp.retrofit;
 
 import com.dsantano.theseriesapp.models.remote.populars.PopularSeries;
-import com.dsantano.theseriesapp.models.remote.detail.SerieDetail;
+import com.dsantano.theseriesapp.models.remote.seasondetail.SeasonDetail;
+import com.dsantano.theseriesapp.models.remote.seriedetail.SerieDetail;
 import com.dsantano.theseriesapp.models.remote.recomendations.SerieRecomendations;
 
 import retrofit2.Call;
@@ -19,5 +20,8 @@ public interface TheMoviedbService {
 
     @GET("tv/{tv_id}/recommendations")
     Call<SerieRecomendations> getSerieRecomendations(@Path("tv_id") String id);
+
+    @GET("tv/{tv_id}/season/{season_number}")
+    Call<SeasonDetail> getSesonDetails(@Path("tv_id") String id, @Path("season_number") String seasonId, @Query("append_to_response") String append);
 
 }

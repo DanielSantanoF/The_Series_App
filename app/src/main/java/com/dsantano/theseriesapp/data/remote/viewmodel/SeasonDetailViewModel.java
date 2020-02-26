@@ -8,25 +8,30 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.data.remote.repository.TmdbSeriesRepository;
-import com.dsantano.theseriesapp.models.remote.seriedetail.SerieDetail;
+import com.dsantano.theseriesapp.models.remote.seasondetail.SeasonDetail;
 
-public class SerieDetailViewModel extends AndroidViewModel {
+public class SeasonDetailViewModel extends AndroidViewModel {
 
     private TmdbSeriesRepository tmdbSeriesRepository;
-    private MutableLiveData<SerieDetail> serieDetail;
+    private MutableLiveData<SeasonDetail> seasonDetail;
     private String serieId;
+    private String seasonId;
 
-    public SerieDetailViewModel(@NonNull Application application) {
+    public SeasonDetailViewModel(@NonNull Application application) {
         super(application);
         tmdbSeriesRepository = new TmdbSeriesRepository();
     }
 
-    public LiveData<SerieDetail> getSerieDetail(){
-        serieDetail = tmdbSeriesRepository.getSerieDetail(serieId);
-        return serieDetail;
+    public LiveData<SeasonDetail> getSeasonDetail(){
+        seasonDetail = tmdbSeriesRepository.getSeasonDetails(serieId, seasonId);
+        return seasonDetail;
     }
 
     public void setSerieId(String id){
         serieId = id;
+    }
+
+    public void setSeasonId(String id){
+        seasonId = id;
     }
 }

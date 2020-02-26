@@ -16,10 +16,6 @@ import lombok.NoArgsConstructor;
 public class LocalSeries {
 
     @NonNull
-    @ColumnInfo(name = "originalName")
-    public String originalName;
-
-    @NonNull
     @ColumnInfo(name = "name")
     public String name;
 
@@ -38,10 +34,6 @@ public class LocalSeries {
     @NonNull
     @ColumnInfo(name = "backdropPath")
     public String backdropPath;
-
-    @NonNull
-    @ColumnInfo(name = "originalLanguage")
-    public String originalLanguage;
 
     @PrimaryKey
     @NonNull

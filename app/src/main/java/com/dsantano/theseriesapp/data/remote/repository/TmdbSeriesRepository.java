@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.dsantano.theseriesapp.common.MyApp;
 import com.dsantano.theseriesapp.models.remote.populars.PopularSeries;
-import com.dsantano.theseriesapp.models.remote.detail.SerieDetail;
+import com.dsantano.theseriesapp.models.remote.seasondetail.SeasonDetail;
+import com.dsantano.theseriesapp.models.remote.seriedetail.SerieDetail;
 import com.dsantano.theseriesapp.models.remote.recomendations.SerieRecomendations;
 import com.dsantano.theseriesapp.retrofit.ServiceGenerator;
 import com.dsantano.theseriesapp.retrofit.TheMoviedbService;
@@ -22,6 +23,7 @@ public class TmdbSeriesRepository {
     MutableLiveData<PopularSeries> allPopulars;
     MutableLiveData<SerieDetail> serieDetail;
     MutableLiveData<SerieRecomendations> serieRecomendations;
+    MutableLiveData<SeasonDetail> seasonDetail;
 
     public TmdbSeriesRepository() {
         service = serviceGenerator.createService(TheMoviedbService.class);
@@ -93,6 +95,29 @@ public class TmdbSeriesRepository {
 
             @Override
             public void onFailure(Call<SerieRecomendations> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return data;
+    }
+
+    public MutableLiveData<SeasonDetail> getSeasonDetails(String idSerie, String idSeason){
+        final MutableLiveData<SeasonDetail> data = new MutableLiveData<>();
+
+        Call<SeasonDetail> call = service.getSesonDetails(idSerie, idSeason, "1");
+        call.enqueue(new Callback<SeasonDetail>() {
+            @Override
+            public void onResponse(Call<SeasonDetail> call, Response<SeasonDetail> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+                    seasonDetail = data;
+                } else {
+                    Toast.makeText(MyApp.getContext(), "Error on the response from the Api", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SeasonDetail> call, Throwable t) {
                 Toast.makeText(MyApp.getContext(), "Error in the connection", Toast.LENGTH_SHORT).show();
             }
         });

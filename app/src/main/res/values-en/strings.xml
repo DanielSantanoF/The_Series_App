@@ -12,8 +12,14 @@
     <string name="created_at_serie_detail">Created at:</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_home">Populars</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Progres in Series</string>
     <string name="title_notifications">Favorites</string>
     <string name="btn_recomendations">Recomendations</string>
     <string name="tmdb_api_language">en-US</string>
+    <string name="season">Season</string>
+    <string name="episode">Episode</string>
+    <string name="txt_select_season">Select the current episode you are watching:</string>
+    <string name="season_and_episode_selected">You selected:</string>
+    <string name="btn_save_season_and_episode" >Save progress on the serie</string>
+    <string name="added_to_serie_progress">Serie progress saved</string>
 </resources>

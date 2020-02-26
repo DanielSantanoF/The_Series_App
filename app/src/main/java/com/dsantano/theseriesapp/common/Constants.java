@@ -8,6 +8,7 @@ public class Constants {
     public static final String THE_MOVIEDB_BASIC_API_URL = "https://api.themoviedb.org/3/";
     public static final String FIREBASE_COLLECTION_USERS = "users";
     public static final String FIREBASE_COLLECTION_FAVORITES = "favorites";
+    public static final String FIREBASE_COLLECTION_SERIES_PROGRESS = "seriesProgress";
     public static final String APP_LOGO = "https://images.squarespace-cdn.com/content/v1/54ce88bfe4b030c6f93e3d9f/1536055880630-JQEH03P1VGG67PZS5F4O/ke17ZwdGBToddI8pDm48kPmAnfhQvqhMptgWHhbKoyhZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxHmI13PUQExzHe63IkveXOojHqdB-MF5SqgJGovDTk0l_7uBv7xs1F-MHtfbN3UJ8/BTGgreen_Icon.png";
     public static final String DEFAULT_USER_PHOTO = "https://covitalidad.edu.umh.es/wp-content/uploads/sites/1352/2018/06/default-user.png";
     public static final String EXTRA_SERIE_ID = "serieId";

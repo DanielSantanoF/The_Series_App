@@ -8,10 +8,12 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.dsantano.theseriesapp.common.Constants;
+import com.dsantano.theseriesapp.data.remote.viewmodel.SeasonDetailViewModel;
 import com.dsantano.theseriesapp.data.remote.viewmodel.SerieDetailViewModel;
-import com.dsantano.theseriesapp.models.remote.detail.SeasonSerieDetail;
-import com.dsantano.theseriesapp.models.remote.detail.SeasonsSpinnerSerieDetail;
-import com.dsantano.theseriesapp.models.remote.detail.SerieDetail;
+import com.dsantano.theseriesapp.models.remote.populars.PopularSeries;
+import com.dsantano.theseriesapp.models.remote.seasondetail.SeasonDetail;
+import com.dsantano.theseriesapp.models.remote.seriedetail.SeasonsSpinnerSerieDetail;
+import com.dsantano.theseriesapp.models.remote.seriedetail.SerieDetail;
 import com.dsantano.theseriesapp.ui.RecomendationSeriesList.RecomendationsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,21 +54,26 @@ import java.util.Map;
 public class DetailSerieScrollingActivity extends AppCompatActivity {
 
     ImageView ivToolbar, ivDetail, ivAuthor;
-    TextView txtTittle, txtDescription, txtCreatedAt, txtCreatedBy;
-    Spinner spnSeasons;
+    TextView txtTittle, txtDescription, txtCreatedAt, txtCreatedBy, txtSeasonEpisodeSelected;
+    Spinner spnSeasons, spnEpisodies;
     RatingBar ratingBar;
-    String serieId, uid;
+    String serieId, uid, seasonSelected, episodeSelected;
     SerieDetailViewModel serieDetailViewModel;
     SerieDetail serieDetailData;
     Toolbar toolbar;
     CollapsingToolbarLayout toolbarLayout;
     Map<String, Object> serieDetailfb;
+    Map<String, Object> serieProgressfb;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     boolean isFavorite = false;
     FloatingActionButton fab;
-    Button btnRecomendations;
+    Button btnRecomendations, btnSaveProgress;
     List<SeasonsSpinnerSerieDetail> seasonsList = new ArrayList<>();
-    ArrayAdapter seaonsSpinnerArrayAsapter;
+    ArrayAdapter seaonsSpinnerArrayAsapter, episodiesSpinnerArrayAdapter;
+    List<String> spinnerSeasonList = new ArrayList<>();
+    List<String> spinnerEpisodiesList = new ArrayList<>();
+    SeasonDetailViewModel seasonDetailViewModel;
+    SeasonDetail seasonSelectedDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,8 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         toolbarLayout = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
+
+        seasonDetailViewModel = new ViewModelProvider(DetailSerieScrollingActivity.this).get(SeasonDetailViewModel.class);
 
         serieId = getIntent().getExtras().get(Constants.EXTRA_SERIE_ID).toString();
 
@@ -91,12 +100,10 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         txtCreatedBy = findViewById(R.id.textViewAuthorNameDetail);
         btnRecomendations = findViewById(R.id.buttonSeeRecomendationsSerieDetail);
         spnSeasons = findViewById(R.id.spinnerSeasonsSerieDetail);
+        spnEpisodies = findViewById(R.id.spinnerEpisodieSerieDetail);
+        txtSeasonEpisodeSelected = findViewById(R.id.textViewSeasonAndEpisodeSelected);
+        btnSaveProgress = findViewById(R.id.buttonSaveSeasonAndEpisode);
 
-        /*
-        SharedPreferences.Editor editor = MainActivity.this.getSharedPreferences("APP_SETTINGS", Context.MODE_PRIVATE).edit();
-                    editor.putString("authToken", responseLogin.body().getToken());
-                    editor.commit();
-        * */
         uid = FirebaseAuth.getInstance().getUid();
 
         loadSerieDetails();
@@ -145,14 +152,14 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                                     Log.d("FB", "Document exists!");
                                     db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                             .document(uid)
-                                            .collection("favorites")
+                                            .collection(Constants.FIREBASE_COLLECTION_FAVORITES)
                                             .document(serieId)
                                             .update(serieDetailfb);
                                 } else {
                                     Log.d("FB", "Document does not exist!");
                                     db.collection(Constants.FIREBASE_COLLECTION_USERS)
                                             .document(uid)
-                                            .collection("favorites")
+                                            .collection(Constants.FIREBASE_COLLECTION_FAVORITES)
                                             .document(serieId)
                                             .set(serieDetailfb);
                                 }
@@ -182,12 +189,94 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
         spnSeasons.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(DetailSerieScrollingActivity.this, "click en item", Toast.LENGTH_SHORT).show();
+                int season = position + 1;
+                loadSeasonDetail(String.valueOf(season));
+                seasonSelected = getResources().getString(R.string.season) + " " + season;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        spnEpisodies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int episode = position + 1;
+                episodeSelected = getResources().getString(R.string.episode) + " " + episode;
+                txtSeasonEpisodeSelected.setText(getResources().getString(R.string.season_and_episode_selected) + " " + seasonSelected  + " " + episodeSelected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btnSaveProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String serieName = serieDetailData.getName();
+                String posterPath = serieDetailData.getPosterPath();
+                String defaultPhoto = Constants.DEFAULT_SERIE_PHOTO;
+                String season = seasonSelected;
+                String episode = episodeSelected;
+                serieProgressfb = new HashMap<>();
+                serieProgressfb.put("serieId", serieId);
+                if(!posterPath.isEmpty()){
+                    serieProgressfb.put("posterPath", posterPath);
+                } else {
+                    serieProgressfb.put("posterPath", defaultPhoto);
+                }
+                serieProgressfb.put("serieName", serieName);
+                serieProgressfb.put("season", season);
+                serieProgressfb.put("episode", episode);
+                DocumentReference docIdRef = db.collection(Constants.FIREBASE_COLLECTION_USERS).document(uid).collection(Constants.FIREBASE_COLLECTION_SERIES_PROGRESS).document(serieId);
+                docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("FB", "Document exists!");
+                                db.collection(Constants.FIREBASE_COLLECTION_USERS)
+                                        .document(uid)
+                                        .collection(Constants.FIREBASE_COLLECTION_SERIES_PROGRESS)
+                                        .document(serieId)
+                                        .update(serieProgressfb);
+                            } else {
+                                Log.d("FB", "Document does not exist!");
+                                db.collection(Constants.FIREBASE_COLLECTION_USERS)
+                                        .document(uid)
+                                        .collection(Constants.FIREBASE_COLLECTION_SERIES_PROGRESS)
+                                        .document(serieId)
+                                        .set(serieProgressfb);
+                            }
+                            Toast.makeText(DetailSerieScrollingActivity.this, getResources().getString(R.string.added_to_serie_progress), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("FB", "Failed with: ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public void loadSeasonDetail(String seasonId){
+        seasonDetailViewModel.setSerieId(serieId);
+        seasonDetailViewModel.setSeasonId(seasonId);
+        seasonDetailViewModel.getSeasonDetail().observe(this, new Observer<SeasonDetail>() {
+            @Override
+            public void onChanged(SeasonDetail seasonDetail) {
+                seasonSelectedDetails = seasonDetail;
+                spinnerEpisodiesList.clear();
+                for(int i = 0; i<seasonDetail.episodes.size(); i++){
+                    spinnerEpisodiesList.add(getResources().getString(R.string.episode) + " " + (i+1));
+                }
+                episodiesSpinnerArrayAdapter = new ArrayAdapter(DetailSerieScrollingActivity.this, R.layout.support_simple_spinner_dropdown_item, spinnerEpisodiesList);
+                spnEpisodies.setAdapter(episodiesSpinnerArrayAdapter);
+                spnEpisodies.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -255,9 +344,10 @@ public class DetailSerieScrollingActivity extends AppCompatActivity {
                     for(int i = 0; i<serieDetail.getSeasons().size(); i++){
                         SeasonsSpinnerSerieDetail itemSpinner = new SeasonsSpinnerSerieDetail(serieDetail.getSeasons().get(i).getSeasonNumber(), serieDetail.getSeasons().get(i).getEpisodeCount(), serieDetail.getSeasons().get(i).getName());
                         seasonsList.add(itemSpinner);
+                        spinnerSeasonList.add(getResources().getString(R.string.season) + " " + (i+1));
                     }
                     //https://www.youtube.com/watch?v=P55qX1-dsZI
-                    seaonsSpinnerArrayAsapter = new ArrayAdapter(DetailSerieScrollingActivity.this, R.layout.support_simple_spinner_dropdown_item, seasonsList);
+                    seaonsSpinnerArrayAsapter = new ArrayAdapter(DetailSerieScrollingActivity.this, R.layout.support_simple_spinner_dropdown_item, spinnerSeasonList);
                     spnSeasons.setAdapter(seaonsSpinnerArrayAsapter);
                     Glide
                             .with(DetailSerieScrollingActivity.this)

@@ -1,4 +1,4 @@
-package com.dsantano.theseriesapp.models.remote.detail;
+package com.dsantano.theseriesapp.models.remote.seriedetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
