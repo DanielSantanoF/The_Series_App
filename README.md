@@ -12,8 +12,8 @@ Proyecto para Android
 
 
 #### Instalar la aplicación
-* O bien instalarla mediante el ide
-* O usar el apk de la aplicación localizado en `/app/release` el archivo `app-release.apk`
+* Instalarla mediante el ide
+
 
 ***
 
